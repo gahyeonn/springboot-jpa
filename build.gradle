@@ -1,36 +1,37 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
-
-group = 'com.jpabook'
+group = 'jpabook'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
 configurations {
 	compileOnly {
-		extendsFrom annotationProcessor //lombok 때문에 생긴 setting
+		extendsFrom annotationProcessor
 	}
 }
-
 repositories {
-	mavenCentral() //Lib를 다운받는 위치 지정
+	mavenCentral()
 }
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
-	//cache 없애고 reloading되게 만들어주는 기능 등 개발에 편한 툴
-	implementation 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
 
-tasks.named('test') {
+	//cache 없애고 reloading되게 만들어주는 기능 등 개발에 편한 툴
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
+	//JUnit4 추가
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: "org.hamcrest", module: "hamcrest-core"
+	}
+}
+test {
 	useJUnitPlatform()
 }

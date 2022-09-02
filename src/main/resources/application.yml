@@ -1,9 +1,9 @@
 spring:
   datasource: #database connection과 관련된 dataSource 설정 => HiKariCP로 connection pool등 셋팅해줌
-    url: jdbc:h2:tcp://localhost/!/jpashop;MVCC=TRUE
+    url: jdbc:h2:tcp://localhost/~/jpashop;MVCC=TRUE
     username: sa
     password:
-      dirver-class-name: org.h2.Driver
+      driver-class-name: org.h2.Driver
 
     jpa:
       hibernate:
@@ -15,4 +15,4 @@ spring:
 
 logging:
   level:
-    org.hibernate.sql: debug #jpa나 sql이 생성하는 sql이 다 로그로 남음
+    org.hibernate.SQL: debug #jpa나 sql이 생성하는 sql이 다 로그로 남음

@@ -16,3 +16,4 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug #jpa나 sql이 생성하는 sql이 다 로그로 남음
+    org.hibernate.type: trace

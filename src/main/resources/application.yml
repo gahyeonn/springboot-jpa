@@ -1,0 +1,18 @@
+spring:
+  datasource: #database connection과 관련된 dataSource 설정 => HiKariCP로 connection pool등 셋팅해줌
+    url: jdbc:h2:tcp://localhost/!/jpashop;MVCC=TRUE
+    username: sa
+    password:
+      dirver-class-name: org.h2.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: create #실행 시점에 테이블 생성, 해당하는 테이블이 있으면 drop하고 새로 만들기 때문에 로컬 환경에서만 사용
+        properties:
+          hibernate:
+#            show_sql: true #생성된 sql 시스템 아웃으로 출력 => 운영환경에서는 무조건 로그로 남기기
+            format_sql: true
+
+logging:
+  level:
+    org.hibernate.sql: debug #jpa나 sql이 생성하는 sql이 다 로그로 남음

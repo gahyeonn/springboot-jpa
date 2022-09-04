@@ -1,0 +1,37 @@
+package com.jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "orders")
+@Getter
+@Setter
+public class Order {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "order_id")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
+    private LocalDateTime orderDate; //시간 분까지 다 표현
+
+    @Enumerated(EnumType.STRING) //ORDINAL 쓰면 숫자로 저장되는데 중간에 상태값이 추가되면 값 변경되기 때문에 항상 STRING 사용
+    private OrderStatus status; //주문 상태 [ORDER, CANCEL]
+}

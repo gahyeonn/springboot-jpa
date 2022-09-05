@@ -34,4 +34,21 @@ public class Order {
 
     @Enumerated(EnumType.STRING) //ORDINAL 쓰면 숫자로 저장되는데 중간에 상태값이 추가되면 값 변경되기 때문에 항상 STRING 사용
     private OrderStatus status; //주문 상태 [ORDER, CANCEL]
+
+    // 연관 관계 (편입) 메서드 => 양방향 연관관계인 경우에 사용하면 좋음. 핵심적으로 control 하는 쪽에 작성
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
 }

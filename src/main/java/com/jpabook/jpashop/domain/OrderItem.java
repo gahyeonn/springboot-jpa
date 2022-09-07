@@ -27,6 +27,18 @@ public class OrderItem {
 
     private int count; //주문 수량
 
+    //==생성 메서드==//
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        //쿠폰이나 할인 등으로 실제 구입 가격은 다를 수 있기 때문에 orderPrice 따로 넣음
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
     //==비즈니스 로직==//
 
     //재고 수량 원복
@@ -34,6 +46,9 @@ public class OrderItem {
         getItem().addStock(count);
     }
 
+    //==조회 로직==//
+
+    //주문 상품 전체 가격 조회
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
     }

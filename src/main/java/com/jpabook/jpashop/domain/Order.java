@@ -30,7 +30,7 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    private LocalDateTime orderDate; //시간 분까지 다 표현
+    private LocalDateTime orderDate; //시간 분까지 다 표현 => 주문 시간
 
     @Enumerated(EnumType.STRING) //ORDINAL 쓰면 숫자로 저장되는데 중간에 상태값이 추가되면 값 변경되기 때문에 항상 STRING 사용
     private OrderStatus status; //주문 상태 [ORDER, CANCEL]
@@ -49,6 +49,19 @@ public class Order {
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    //==생성 메서드==//
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
     }
 
 }
